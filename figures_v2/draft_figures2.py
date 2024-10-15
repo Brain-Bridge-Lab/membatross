@@ -1,3 +1,10 @@
+###
+# 
+# Author: Andrew J. Stier
+# Modified by: Fiona M. Lee
+#
+###
+
 import numpy
 import pandas
 import matplotlib.pyplot as plt
@@ -21,12 +28,12 @@ eu_data['between_within'] = eu_data['between_cat_distance']*eu_data['within_cat_
 eu_data['between_rad'] = eu_data['between_cat_distance']*eu_data['radius']
 eu_data['within_rad'] = eu_data['within_cat_distance']*eu_data['radius']
 
-hbp_data['between_cat_distance'] = OLS(hbp_data['between_cat_distance'],add_constant(hbp_data['radius'])).fit().resid
-eu_data['between_cat_distance'] = OLS(eu_data['between_cat_distance'],add_constant(eu_data['radius'])).fit().resid
+hbp_data['between_cat_distance_resid'] = OLS(hbp_data['between_cat_distance'],add_constant(hbp_data['radius'])).fit().resid
+eu_data['between_cat_distance_resid'] = OLS(eu_data['between_cat_distance'],add_constant(eu_data['radius'])).fit().resid
 
 
 #variance_inflation_factor(hbp_data[['radius','between_cat_distance']].values,0)
-f = OLS(hbp_data['cr'],add_constant(hbp_data[['radius','between_cat_distance','within_cat_distance']])).fit()
+f = OLS(hbp_data['cr'],add_constant(hbp_data[['radius','between_cat_distance_resid','within_cat_distance']])).fit()
 print(f.summary())
 hbp_data = hbp_data[~numpy.isnan(hbp_data['human_typ'])]
 # f = OLS(hbp_data['human_typ'],add_constant(hbp_data[['radius','between_cat_distance','within_cat_distance']])).fit()
